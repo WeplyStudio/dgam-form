@@ -87,11 +87,26 @@ export function RecruitmentForm() {
             console.log('Form data submitted to SheetDB:', data);
             router.push('/thank-you');
         } else {
-            const errorData = await response.json();
-            console.error('Gagal mengirim ke SheetDB:', errorData);
+            const status = response.status;
+            const statusText = response.statusText;
+            const errorBody = await response.text();
+            console.error(`Gagal mengirim ke SheetDB. Status: ${status} ${statusText}. Response: ${errorBody}`);
+            
+            let description = `Maaf, terjadi kesalahan (Status: ${status}). Coba lagi.`;
+            if (errorBody) {
+                try {
+                    const errorJson = JSON.parse(errorBody);
+                    // Use 'error' field if it exists, otherwise stringify the object
+                    description = errorJson.error ? errorJson.error : JSON.stringify(errorJson);
+                } catch (e) {
+                    // If parsing fails, the body is likely plain text or HTML
+                    description = errorBody.substring(0, 100); // Truncate for display
+                }
+            }
+            
             toast({
               title: 'Gagal Mengirim',
-              description: 'Maaf, terjadi kesalahan saat mengirimkan data Anda. Silakan coba lagi.',
+              description: description,
               variant: 'destructive'
             });
         }
