@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { cn } from '@/lib/utils';
+import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
   title: 'Pendaftaran DAGM',
@@ -26,8 +27,9 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className={cn('font-sans antialiased text-black')}>
+      <body className={cn('font-sans antialiased')}>
         {children}
+        <Toaster />
       </body>
     </html>
   );

@@ -4,14 +4,13 @@ import { useFormContext } from 'react-hook-form';
 import { departments } from '@/lib/departments';
 
 export function StepDepartment() {
-  const { register, watch, formState: { errors } } = useFormContext();
-  const selectedDepartment = watch('department');
+  const { register, formState: { errors } } = useFormContext();
 
   return (
     <>
       <div className="mb-8">
         <h2 className="text-3xl font-bold mb-2">Pilih Divisi</h2>
-        <p className="text-gray-500">Pilih tempat dimana kamu ingin bertumbuh.</p>
+        <p className="text-muted-foreground">Pilih tempat dimana kamu ingin bertumbuh.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -28,12 +27,12 @@ export function StepDepartment() {
                 <div className="p-3 bg-gray-50 rounded-lg group-hover:bg-gray-100 transition-colors">
                   <dept.icon />
                 </div>
-                <div className="w-6 h-6 rounded-full border-2 border-gray-200 check-icon bg-white flex items-center justify-center">
-                  <div className="w-3 h-3 bg-black rounded-full"></div>
+                <div className="w-6 h-6 rounded-full border-2 border-muted check-icon bg-card flex items-center justify-center">
+                  <div className="w-3 h-3 bg-foreground rounded-full"></div>
                 </div>
               </div>
               <h3 className="font-bold text-lg mb-1">{dept.name}</h3>
-              <p className="text-sm text-gray-500 dept-desc leading-relaxed">{dept.description}</p>
+              <p className="text-sm text-muted-foreground dept-desc leading-relaxed">{dept.description}</p>
             </label>
           </div>
         ))}

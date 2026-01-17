@@ -2,9 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --background: 0 0% 96%; /* #F5F5F5 */
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 231 48% 48%; /* #3F51B5 */
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 182 100% 74%; /* #7DF9FF */
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 1rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+}
+
 body {
-    background-color: #fafafa;
-    background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+    background-color: hsl(var(--background));
+    background-image: radial-gradient(hsl(var(--border)) 1px, transparent 1px);
     background-size: 24px 24px;
 }
 
@@ -18,18 +62,18 @@ body {
     width: 100%;
     background: transparent;
     border: none;
-    border-bottom: 2px solid #e5e5e5;
+    border-bottom: 2px solid hsl(var(--border));
     padding: 1rem 0 0.5rem 0;
     font-size: 1.125rem;
     font-weight: 500;
-    color: #0a0a0a;
+    color: hsl(var(--foreground));
     transition: all 0.3s ease;
     border-radius: 0;
 }
 
 .input-field:focus {
     outline: none;
-    border-bottom-color: #0a0a0a;
+    border-bottom-color: hsl(var(--primary));
 }
 
 .input-label {
@@ -37,19 +81,18 @@ body {
     top: 0.75rem;
     left: 0;
     font-size: 1rem;
-    color: #9ca3af;
+    color: hsl(var(--muted-foreground));
     pointer-events: none;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Floating label active state */
 .input-field:focus + .input-label,
 .input-field:not(:placeholder-shown) + .input-label {
     top: -0.75rem;
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.05em;
-    color: #0a0a0a;
+    color: hsl(var(--primary));
     text-transform: uppercase;
 }
 
@@ -62,35 +105,46 @@ body {
     display: flex;
     flex-direction: column;
     padding: 1.5rem;
-    border: 2px solid #f3f4f6;
-    background: white;
-    border-radius: 1rem;
+    border: 2px solid hsl(var(--border));
+    background: hsl(var(--card));
+    border-radius: var(--radius);
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     height: 100%;
 }
 
 .dept-card:hover {
-    border-color: #d1d5db;
+    border-color: hsl(var(--muted-foreground));
     transform: translateY(-2px);
 }
 
 .dept-card-wrapper input:checked + .dept-card {
-    background-color: #0a0a0a;
-    border-color: #0a0a0a;
-    color: white;
-    box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.2);
+    background-color: hsl(var(--primary));
+    border-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    box-shadow: 0 15px 30px -5px hsla(var(--primary), 0.2);
     transform: translateY(-4px) scale(1.01);
 }
 
 .dept-card-wrapper input:checked + .dept-card .dept-desc {
-    color: #9ca3af;
+    color: hsl(var(--primary-foreground) / 0.8);
 }
 
 .dept-card-wrapper input:checked + .dept-card .check-icon {
     opacity: 1;
     transform: scale(1);
+    background-color: hsl(var(--primary-foreground));
+    border-color: hsl(var(--primary-foreground));
 }
+
+.dept-card-wrapper input:checked + .dept-card .check-icon > div {
+    background-color: hsl(var(--primary));
+}
+
+.dept-card-wrapper input:checked + .dept-card svg {
+    stroke: hsl(var(--primary-foreground));
+}
+
 
 .check-icon {
     opacity: 0;
@@ -125,5 +179,5 @@ body {
 /* Custom Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground)); }
