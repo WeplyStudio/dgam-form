@@ -71,10 +71,34 @@ export function RecruitmentForm() {
   };
 
   async function processSubmit(data: ApplicationData) {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    console.log('Form data submitted:', data);
-    setShowModal(true);
+    // TODO: Ganti dengan URL API SheetDB.io Anda
+    const SHEETDB_API_URL = 'https://sheetdb.io/api/v1/YOUR_API_ID_HERE';
+
+    try {
+        const response = await fetch(SHEETDB_API_URL, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              ...data,
+              // Add a timestamp for when the data was submitted
+              submittedAt: new Date().toISOString(),
+            })
+        });
+
+        if (response.ok) {
+            console.log('Form data submitted to SheetDB:', data);
+            setShowModal(true);
+        } else {
+            console.error('Gagal mengirim ke SheetDB:', await response.json());
+            alert('Maaf, terjadi kesalahan saat mengirimkan data Anda. Silakan coba lagi.');
+        }
+    } catch (error) {
+        console.error('Error saat mengirim ke SheetDB:', error);
+        alert('Maaf, terjadi kesalahan koneksi. Silakan periksa koneksi internet Anda dan coba lagi.');
+    }
   }
   
   const closeModal = () => {
