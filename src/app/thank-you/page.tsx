@@ -21,7 +21,7 @@ export default function ThankYouPage() {
                 Terima kasih telah mendaftar. Datamu telah kami terima dan akan segera kami proses. Silakan bergabung ke grup WhatsApp untuk informasi selanjutnya.
             </p>
             <Button asChild size="lg" className="w-full bg-green-500 hover:bg-green-600 text-white font-bold text-base rounded-full">
-                <Link href="https://chat.whatsapp.com/YOUR_GROUP_INVITE_LINK_HERE" target="_blank">
+                <Link href="https://chat.whatsapp.com/FALmP61zCv5IRcarGPsxyx" target="_blank">
                     <MessageCircle className="mr-2" /> Gabung Grup WhatsApp
                 </Link>
             </Button>
