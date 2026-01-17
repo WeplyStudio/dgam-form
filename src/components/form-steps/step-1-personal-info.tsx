@@ -1,85 +1,63 @@
 'use client';
 
 import { useFormContext } from 'react-hook-form';
-import {
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 
 export function StepPersonalInfo() {
-  const form = useFormContext();
+  const { register, formState: { errors } } = useFormContext();
 
   return (
-    <div className="space-y-6">
-      <FormField
-        control={form.control}
-        name="name"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Full Name</FormLabel>
-            <FormControl>
-              <Input placeholder="John Doe" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email Address</FormLabel>
-              <FormControl>
-                <Input placeholder="john.doe@example.com" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="phone"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Phone Number</FormLabel>
-              <FormControl>
-                <Input placeholder="+1234567890" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+    <>
+      <div className="mb-10">
+        <h2 className="text-3xl font-bold mb-2">Siapa namamu?</h2>
+        <p className="text-gray-500">Mari mulai dengan perkenalan singkat.</p>
       </div>
 
-      <FormField
-        control={form.control}
-        name="background"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Background Details</FormLabel>
-            <FormControl>
-              <Textarea
-                placeholder="Tell us a little about your professional or academic background..."
-                className="min-h-[120px]"
-                {...field}
-              />
-            </FormControl>
-            <FormDescription>
-              Provide a brief overview of your experience and qualifications.
-            </FormDescription>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-    </div>
+      <div className="space-y-6">
+        <div className="input-group">
+          <input type="text" id="fullName" {...register('fullName')} className="input-field" placeholder=" " />
+          <label htmlFor="fullName" className="input-label">Nama Lengkap</label>
+          {errors.fullName && <p className="text-red-500 text-xs mt-1">{errors.fullName.message as string}</p>}
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="input-group">
+            <input type="text" id="birthPlace" {...register('birthPlace')} className="input-field" placeholder=" " />
+            <label htmlFor="birthPlace" className="input-label">Tempat Lahir</label>
+             {errors.birthPlace && <p className="text-red-500 text-xs mt-1">{errors.birthPlace.message as string}</p>}
+          </div>
+          <div className="input-group">
+            <input type="date" id="birthDate" {...register('birthDate')} className="input-field" />
+            <label htmlFor="birthDate" className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1 block absolute -top-4">Tanggal Lahir</label>
+             {errors.birthDate && <p className="text-red-500 text-xs mt-1">{errors.birthDate.message as string}</p>}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="input-group">
+            <input type="text" id="school" {...register('school')} className="input-field" placeholder=" " />
+            <label htmlFor="school" className="input-label">Sekolah / Universitas</label>
+            {errors.school && <p className="text-red-500 text-xs mt-1">{errors.school.message as string}</p>}
+          </div>
+          <div className="input-group">
+            <input type="tel" id="whatsapp" {...register('whatsapp')} className="input-field" placeholder=" " />
+            <label htmlFor="whatsapp" className="input-label">Nomor WhatsApp</label>
+            {errors.whatsapp && <p className="text-red-500 text-xs mt-1">{errors.whatsapp.message as string}</p>}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="input-group">
+            <input type="text" id="district" {...register('district')} className="input-field" placeholder=" " />
+            <label htmlFor="district" className="input-label">Kecamatan</label>
+            {errors.district && <p className="text-red-500 text-xs mt-1">{errors.district.message as string}</p>}
+          </div>
+          <div className="input-group">
+            <input type="text" id="regency" {...register('regency')} className="input-field" placeholder=" " />
+            <label htmlFor="regency" className="input-label">Kab/Provinsi</label>
+            {errors.regency && <p className="text-red-500 text-xs mt-1">{errors.regency.message as string}</p>}
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

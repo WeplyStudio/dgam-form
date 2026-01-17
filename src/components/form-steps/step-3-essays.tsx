@@ -1,81 +1,54 @@
 'use client';
 
 import { useFormContext } from 'react-hook-form';
-import {
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Textarea } from '@/components/ui/textarea';
+import { useEffect, useRef } from 'react';
+
+function AutoResizeTextarea(props: React.ComponentProps<'textarea'>) {
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    const resize = () => {
+        if (textareaRef.current) {
+            textareaRef.current.style.height = 'auto';
+            textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+        }
+    };
+
+    useEffect(() => {
+        resize();
+    }, []);
+
+    return <textarea ref={textareaRef} {...props} onInput={resize} />;
+}
 
 export function StepEssays() {
-  const form = useFormContext();
+  const { register, formState: { errors } } = useFormContext();
 
   return (
-    <div className="space-y-8">
-      <FormField
-        control={form.control}
-        name="essayReason"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel className="font-semibold">
-              Why did you choose this department?
-            </FormLabel>
-            <FormControl>
-              <Textarea
-                placeholder="Explain your interest in the selected department and how it aligns with your career goals..."
-                className="min-h-[150px]"
-                {...field}
-              />
-            </FormControl>
-            <FormDescription>
-              This essay will be analyzed by our AI for feedback.
-            </FormDescription>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="essayProgram"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel className="font-semibold">
-              What work programs do you propose?
-            </FormLabel>
-            <FormControl>
-              <Textarea
-                placeholder="Outline any specific projects or initiatives you would like to work on..."
-                className="min-h-[150px]"
-                {...field}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="essayMotivation"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel className="font-semibold">
-              What is your motivation for joining DAGM?
-            </FormLabel>
-            <FormControl>
-              <Textarea
-                placeholder="Describe what motivates you to contribute to our organization's mission..."
-                className="min-h-[150px]"
-                {...field}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-    </div>
+    <>
+      <div className="mb-8">
+        <h2 className="text-3xl font-bold mb-2">Ceritakan Idenya</h2>
+        <p className="text-gray-500">Tunjukkan visi dan misimu melalui tulisan.</p>
+      </div>
+
+      <div className="space-y-10">
+        <div className="input-group">
+          <AutoResizeTextarea id="reason" {...register('reason')} rows={1} className="input-field resize-none h-auto overflow-hidden" placeholder=" " />
+          <label htmlFor="reason" className="input-label">Alasan memilih Departemen tersebut?</label>
+          {errors.reason && <p className="text-red-500 text-xs mt-1">{errors.reason.message as string}</p>}
+        </div>
+
+        <div className="input-group">
+          <AutoResizeTextarea id="program" {...register('program')} rows={1} className="input-field resize-none h-auto overflow-hidden" placeholder=" " />
+          <label htmlFor="program" className="input-label">Program kerja apa yang akan kamu buat?</label>
+          {errors.program && <p className="text-red-500 text-xs mt-1">{errors.program.message as string}</p>}
+        </div>
+
+        <div className="input-group">
+          <AutoResizeTextarea id="motivation" {...register('motivation')} rows={1} className="input-field resize-none h-auto overflow-hidden" placeholder=" " />
+          <label htmlFor="motivation" className="input-label">Apa motivasi hidup kamu?</label>
+          {errors.motivation && <p className="text-red-500 text-xs mt-1">{errors.motivation.message as string}</p>}
+        </div>
+      </div>
+    </>
   );
 }

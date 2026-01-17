@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
-  title: 'DAGM Recruitment Portal',
-  description: 'Apply to become a part of DAGM.',
+  title: 'Pendaftaran DAGM',
+  description: 'Dewan Aspirasi Generasi Muda',
 };
 
 export default function RootLayout({
@@ -14,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="id" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -23,13 +22,12 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className={cn('font-body antialiased')}>
+      <body className={cn('font-sans antialiased text-black')}>
         {children}
-        <Toaster />
       </body>
     </html>
   );

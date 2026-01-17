@@ -1,65 +1,44 @@
 'use client';
 
 import { useFormContext } from 'react-hook-form';
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from '@/components/ui/radio-group';
-import { departments } from '@/lib/definitions';
-import { Card, CardDescription, CardHeader, CardTitle } from '../ui/card';
-import { cn } from '@/lib/utils';
+import { departments } from '@/lib/departments';
 
 export function StepDepartment() {
-  const form = useFormContext();
+  const { register, watch, formState: { errors } } = useFormContext();
+  const selectedDepartment = watch('department');
 
   return (
-    <FormField
-      control={form.control}
-      name="department"
-      render={({ field }) => (
-        <FormItem className="space-y-3">
-          <FormLabel className="text-xl font-bold">
-            Choose Your Preferred Department
-          </FormLabel>
-          <FormControl>
-            <RadioGroup
-              onValueChange={field.onChange}
-              defaultValue={field.value}
-              className="grid grid-cols-1 md:grid-cols-2 gap-4"
-            >
-              {departments.map((dept) => (
-                <FormItem key={dept.id}>
-                  <FormControl>
-                    <RadioGroupItem value={dept.id} className="sr-only" />
-                  </FormControl>
-                  <FormLabel
-                    htmlFor={dept.id}
-                    className={cn(
-                      'block w-full cursor-pointer rounded-lg border-2 p-4 transition-all',
-                      field.value === dept.id
-                        ? 'border-primary ring-2 ring-primary'
-                        : 'border-border hover:border-accent-foreground'
-                    )}
-                  >
-                    <CardHeader className="p-0">
-                      <CardTitle className="text-base">{dept.name}</CardTitle>
-                      <CardDescription className="text-sm">{dept.description}</CardDescription>
-                    </CardHeader>
-                  </FormLabel>
-                </FormItem>
-              ))}
-            </RadioGroup>
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
+    <>
+      <div className="mb-8">
+        <h2 className="text-3xl font-bold mb-2">Pilih Divisi</h2>
+        <p className="text-gray-500">Pilih tempat dimana kamu ingin bertumbuh.</p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {departments.map((dept) => (
+          <div className="dept-card-wrapper" key={dept.id}>
+            <input
+              type="radio"
+              id={dept.id}
+              value={dept.id}
+              {...register('department')}
+            />
+            <label htmlFor={dept.id} className="dept-card group">
+              <div className="flex justify-between items-start mb-4">
+                <div className="p-3 bg-gray-50 rounded-lg group-hover:bg-gray-100 transition-colors">
+                  <dept.icon />
+                </div>
+                <div className="w-6 h-6 rounded-full border-2 border-gray-200 check-icon bg-white flex items-center justify-center">
+                  <div className="w-3 h-3 bg-black rounded-full"></div>
+                </div>
+              </div>
+              <h3 className="font-bold text-lg mb-1">{dept.name}</h3>
+              <p className="text-sm text-gray-500 dept-desc leading-relaxed">{dept.description}</p>
+            </label>
+          </div>
+        ))}
+      </div>
+      {errors.department && <p className="text-red-500 text-xs mt-2">{errors.department.message as string}</p>}
+    </>
   );
 }

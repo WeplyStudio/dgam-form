@@ -1,56 +1,39 @@
 'use client';
 
 import { useFormContext } from 'react-hook-form';
-import {
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 
 export function StepConfirmation() {
-  const form = useFormContext();
+  const { register, formState: { errors } } = useFormContext();
 
   return (
-    <div className="space-y-6 flex flex-col items-center text-center">
-      <Card className="w-full max-w-lg">
-        <CardHeader>
-          <CardTitle>Final Confirmation</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <p className="text-muted-foreground">
-            You are about to submit your application to the DAGM Recruitment
-            Portal. Please review all your information before proceeding. By
-            checking the box below, you confirm your commitment to the DAGM's
-            values and mission.
-          </p>
-          <FormField
-            control={form.control}
-            name="commitment"
-            render={({ field }) => (
-              <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow justify-center">
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <div className="space-y-1 leading-none">
-                  <FormLabel>
-                    I confirm my commitment to DAGM and certify that all the
-                    information provided is accurate.
-                  </FormLabel>
-                  <FormMessage />
-                </div>
-              </FormItem>
-            )}
-          />
-        </CardContent>
-      </Card>
-    </div>
+    <>
+      <div className="mb-8">
+        <h2 className="text-3xl font-bold mb-2">Langkah Terakhir</h2>
+        <p className="text-gray-500">Konfirmasi kesiapanmu bergabung.</p>
+      </div>
+
+      <p className="text-xl font-medium mb-8 text-black">Apakah kamu siap berkontribusi penuh untuk DAGM?</p>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="dept-card-wrapper">
+          <input type="radio" id="readyYes" value="Siap, yakin" {...register('commitment')} />
+          <label htmlFor="readyYes" className="dept-card text-center items-center justify-center py-8">
+            <span className="text-3xl mb-2">🔥</span>
+            <span className="text-xl font-bold">Siap, Yakin!</span>
+            <span className="text-sm text-gray-400 mt-1">Saya akan memberikan 100%</span>
+          </label>
+        </div>
+
+        <div className="dept-card-wrapper">
+          <input type="radio" id="readyNo" value="Siap, tidak" {...register('commitment')} />
+          <label htmlFor="readyNo" className="dept-card text-center items-center justify-center py-8 opacity-70 hover:opacity-100">
+            <span className="text-3xl mb-2">🤔</span>
+            <span className="text-xl font-bold">Masih Ragu</span>
+            <span className="text-sm text-gray-400 mt-1">Saya perlu berpikir lagi</span>
+          </label>
+        </div>
+      </div>
+      {errors.commitment && <p className="text-red-500 text-xs mt-2">{errors.commitment.message as string}</p>}
+    </>
   );
 }
