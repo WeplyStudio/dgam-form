@@ -11,12 +11,12 @@ export const applicationSchema = z.object({
   district: requiredString,
   regency: requiredString,
 
-  department: z.enum(
+  department: z.preprocess((val) => val ?? undefined, z.enum(
     ['WIRAMA', 'Humas & Kemitraan', 'Pendidikan Literasi', 'Aspirasi dan Advokasi'],
     {
       required_error: 'You need to select a department.',
     }
-  ),
+  )),
 
   reason: requiredString.min(10, 'Please provide at least 10 characters.'),
   program: requiredString.min(10, 'Please provide at least 10 characters.'),
@@ -25,9 +25,9 @@ export const applicationSchema = z.object({
   critical1: requiredString.min(10, 'Please provide at least 10 characters.'),
   critical2: requiredString.min(10, 'Please provide at least 10 characters.'),
 
-  commitment: z.enum(['Siap, yakin', 'Siap, tidak'], {
+  commitment: z.preprocess((val) => val ?? undefined, z.enum(['Siap, yakin', 'Siap, tidak'], {
       required_error: 'You must confirm your commitment to proceed.',
-  }).refine(val => val === 'Siap, yakin', {
+  })).refine(val => val === 'Siap, yakin', {
       message: 'You must be ready to join to submit the application.',
   }),
 });
