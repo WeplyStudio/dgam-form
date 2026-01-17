@@ -25,7 +25,7 @@ export function StepDepartment() {
             <label htmlFor={dept.id} className="dept-card group">
               <div className="flex justify-between items-start mb-4">
                 <div className="p-3 bg-gray-50 rounded-lg group-hover:bg-gray-100 transition-colors">
-                  <dept.icon />
+                  <dept.icon className="stroke-foreground" />
                 </div>
                 <div className="w-6 h-6 rounded-full border-2 border-muted check-icon bg-card flex items-center justify-center">
                   <div className="w-3 h-3 bg-foreground rounded-full"></div>
@@ -37,7 +37,7 @@ export function StepDepartment() {
           </div>
         ))}
       </div>
-      {errors.department && <p className="text-red-500 text-xs mt-2">{errors.department.message as string}</p>}
+      {errors.department && <p className="text-destructive text-xs mt-2">{errors.department.message as string}</p>}
     </>
   );
 }

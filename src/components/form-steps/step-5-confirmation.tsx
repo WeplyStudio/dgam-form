@@ -12,7 +12,7 @@ export function StepConfirmation() {
         <p className="text-gray-500">Konfirmasi kesiapanmu bergabung.</p>
       </div>
 
-      <p className="text-xl font-medium mb-8 text-black">Apakah kamu siap berkontribusi penuh untuk DAGM?</p>
+      <p className="text-xl font-medium mb-8 text-foreground">Apakah kamu siap berkontribusi penuh untuk DAGM?</p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="dept-card-wrapper">
@@ -33,7 +33,7 @@ export function StepConfirmation() {
           </label>
         </div>
       </div>
-      {errors.commitment && <p className="text-red-500 text-xs mt-2">{errors.commitment.message as string}</p>}
+      {errors.commitment && <p className="text-destructive text-xs mt-2">{errors.commitment.message as string}</p>}
     </>
   );
 }

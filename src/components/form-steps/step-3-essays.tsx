@@ -17,6 +17,12 @@ function AutoResizeTextarea(props: React.ComponentProps<'textarea'>) {
         resize();
     }, []);
 
+    // Handle resize on mount for pre-filled values
+    useEffect(() => {
+      const timer = setTimeout(resize, 0);
+      return () => clearTimeout(timer);
+    }, []);
+
     return <textarea ref={textareaRef} {...props} onInput={resize} />;
 }
 
@@ -34,19 +40,19 @@ export function StepEssays() {
         <div className="input-group">
           <AutoResizeTextarea id="reason" {...register('reason')} rows={1} className="input-field resize-none h-auto overflow-hidden" placeholder=" " />
           <label htmlFor="reason" className="input-label">Alasan memilih Departemen tersebut?</label>
-          {errors.reason && <p className="text-red-500 text-xs mt-1">{errors.reason.message as string}</p>}
+          {errors.reason && <p className="text-destructive text-xs mt-1">{errors.reason.message as string}</p>}
         </div>
 
         <div className="input-group">
           <AutoResizeTextarea id="program" {...register('program')} rows={1} className="input-field resize-none h-auto overflow-hidden" placeholder=" " />
           <label htmlFor="program" className="input-label">Program kerja apa yang akan kamu buat?</label>
-          {errors.program && <p className="text-red-500 text-xs mt-1">{errors.program.message as string}</p>}
+          {errors.program && <p className="text-destructive text-xs mt-1">{errors.program.message as string}</p>}
         </div>
 
         <div className="input-group">
           <AutoResizeTextarea id="motivation" {...register('motivation')} rows={1} className="input-field resize-none h-auto overflow-hidden" placeholder=" " />
           <label htmlFor="motivation" className="input-label">Apa motivasi hidup kamu?</label>
-          {errors.motivation && <p className="text-red-500 text-xs mt-1">{errors.motivation.message as string}</p>}
+          {errors.motivation && <p className="text-destructive text-xs mt-1">{errors.motivation.message as string}</p>}
         </div>
       </div>
     </>
