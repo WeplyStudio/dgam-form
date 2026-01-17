@@ -32,7 +32,7 @@ export function RecruitmentForm() {
     mode: 'onTouched',
   });
 
-  const { trigger, handleSubmit, formState: { isSubmitting } } = form;
+  const { trigger, handleSubmit, formState: { isSubmitting }, reset } = form;
 
   useEffect(() => {
     const mobileStepCounter = document.getElementById('mobile-step-counter');
@@ -71,8 +71,7 @@ export function RecruitmentForm() {
   };
 
   async function processSubmit(data: ApplicationData) {
-    // TODO: Ganti dengan URL API SheetDB.io Anda
-    const SHEETDB_API_URL = 'https://sheetdb.io/api/v1/YOUR_API_ID_HERE';
+    const SHEETDB_API_URL = 'https://sheetdb.io/api/v1/xpjvj6bksyo97';
 
     try {
         const response = await fetch(SHEETDB_API_URL, {
@@ -104,7 +103,7 @@ export function RecruitmentForm() {
   const closeModal = () => {
       setShowModal(false);
       setCurrentStep(0);
-      form.reset();
+      reset();
   }
 
   const CurrentStepComponent = stepComponents[currentStep];
